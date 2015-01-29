@@ -79,9 +79,9 @@ public class ServletOne extends HttpServlet {
 			}else {
 			response.getWriter().println("already life:"+session.getAttribute("data"));
 			s= NewStar.get1(session.getAttribute("data").toString());
-			out.println(s);
+			
 		}		
-		
+		out.println(s);
 
 
 	}
