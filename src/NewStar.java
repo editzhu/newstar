@@ -2,23 +2,27 @@
 
 
 public class NewStar {
-	static final int MAXX=100;
-	static final int MAXY=100;
-	static int[][] maps= new int[100][100];
-	static int[][] maps1= new int[100][100];
+	static final int MAXX=6;
+	static final int MAXY=6;
+	static int[][] maps= new int[MAXX][MAXY];
+	static int[][] maps1= new int[MAXX][MAXY];
 	static int[] tmpMap = new int[8];
 	public static void iniMaps(){
 		for (int i = 0;i<MAXX;i++)
 			for (int j = 0 ;j<MAXY;j++){
 				maps[i][j]=0;
 			}
+		maps[2][2]=1;
+		maps[5][2]=1;
 		maps[5][5]=1;
+		maps[2][5]=1;
 	}
 	public static void iniTmpMap(){
 		for (int i =0 ;i<8;i++)
 			tmpMap[i]=0;
 	}
 	public static boolean check(int i,int j){
+//		System.out.println("check");
 		int total = 0;
 		iniTmpMap();
 		tmpMap[0]=maps[i-1][j-1];
@@ -38,6 +42,7 @@ public class NewStar {
 			return false;
 	}
 	public static void choose1(int i ,int j,boolean b){
+//		System.out.println("choose1");
 		if(b)maps1[i][j]=1;
 		else maps1[i][j]=0;
 	}
@@ -81,15 +86,21 @@ public class NewStar {
 		return s;
 	}
 	public static String get1(String str){
+		if(str.equals("null")){
+			System.out.println("is null begin to ini");
+			iniMaps();
+			iniTmpMap();
+		}
+		System.out.println("进来的时候是这样的:"+str);
 		if(!str.equals("null")){
 			for (int i=0;i<str.length();i++){
-				maps[(int)(i/100)][i-(int)(i/100)*100]=Integer.parseInt(str.substring(i,i+1));
+//				System.out.println("aaa"+((int)(i/MAXX))+":"+(i-(int)(i/MAXX)*MAXX)+":"+(Integer.parseInt(str.substring(i,i+1))));
+				maps[(int)(i/MAXX)][i-(int)(i/MAXX)*MAXX]=Integer.parseInt(str.substring(i,i+1));
 			}
 		}
-		iniMaps();
-		iniTmpMap();
+
+
 		String s ="";
-//		for(int k=0;k<100;k++){
 
 			
 			int total = 0;
@@ -97,17 +108,20 @@ public class NewStar {
 				for (int j=0;j<MAXY;j++){
 					total+=maps[i][j];
 					s=s+maps[i][j];
-					if(maps[i][j]==0)System.out.print("0");
-					else System.out.print("*");
 				}
-				System.out.println();
 			}
 			System.out.println("TOTAL =:"+total);
-			
+			System.out.println("转化成数组后是这样的:"+s);			
 			begin();
 			copy();
-//		}
-		System.out.println(s.length());
+			s="";
+			for (int i=0;i<MAXX;i++){
+				for (int j=0;j<MAXY;j++){
+					total+=maps[i][j];
+					s=s+maps[i][j];
+				}
+			}
+		System.out.println("经过演算后是这样的:"+s);
 		return s;
 	}
 	

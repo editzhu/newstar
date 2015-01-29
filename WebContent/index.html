@@ -26,6 +26,8 @@
 			}
 		}
 		function drawP(t, j) {
+			cxt.clearRect(0,0,canvas.width,canvas.height);
+		    context.beginPath();
 			cxt.moveTo(t * 2, j * 2);
 			cxt.lineTo(t * 2 + 2, j * 2 + 2);
 			cxt.moveTo(t * 2 + 2, j * 2);
@@ -48,8 +50,8 @@
 					document.getElementById("myDiv1").innerHTML = s;
 					var tmpi, tmpj;
 					for (var i = 0; i < s.length; i++) {
-						tmpi = Math.floor(i / 100);
-						tmpj = i - tmpi * 100;
+						tmpi = Math.floor(i / 6);
+						tmpj = i - tmpi * 6;
 						if (s.charAt(i) != '0')
 							drawP(tmpi, tmpj);
 					}
