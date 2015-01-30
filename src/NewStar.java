@@ -2,8 +2,8 @@
 
 
 public class NewStar {
-	static final int MAXX=6;
-	static final int MAXY=6;
+	static final int MAXX=50;
+	static final int MAXY=MAXX;
 	static int[][] maps= new int[MAXX][MAXY];
 	static int[][] maps1= new int[MAXX][MAXY];
 	static int[] tmpMap = new int[8];
@@ -11,11 +11,9 @@ public class NewStar {
 		for (int i = 0;i<MAXX;i++)
 			for (int j = 0 ;j<MAXY;j++){
 				maps[i][j]=0;
+				if(i==1||i==MAXX-1||j==1||j==MAXY-1)maps[i][j]=1;
 			}
-		maps[2][2]=1;
-		maps[5][2]=1;
-		maps[5][5]=1;
-		maps[2][5]=1;
+
 	}
 	public static void iniTmpMap(){
 		for (int i =0 ;i<8;i++)
@@ -36,7 +34,9 @@ public class NewStar {
 		for(int k = 0 ;k<8;k++)
 			total += tmpMap[k];
 //		System.out.println("("+i+","+j+")="+total);
-		if (total>0&&total<3)
+//		System.out.println(total+":"+((10*(8-4)))/100+":"+Math.random());
+		if (total>2&&total<6)//周围点大于2小于6就一定会继续生存,反之死亡
+//		if ((50-Math.abs(10*(total-4)))>Math.random()*100)
 			return true;
 		else 
 			return false;

@@ -1,21 +1,56 @@
 <!DOCTYPE HTML>
 <html>
+<head>        
+	<style>    
+            #board tr td{    
+                width: 10px;    
+                height: 10px;    
+            }  
+            #main{  
+                float: left;  
+            }  
+            #preBoard tr td{  
+                width: 20px;   
+                height: 20px;  
+            }  
+        </style>  
+</head>
 <body>
 
 	<canvas id="myCanvas" width="200" height="200"
 		style="border: 1px solid #c3c3c3;">
 
 </canvas>
-	<div id="myDiv">
+	<div id="myDiv" >
 		<h2>Let AJAX change this text</h2>
 	</div>
 	<div id="myDiv1">
 		<h2>temp</h2>
 	</div>
-	<button type="button" onclick="loadXMLDoc()">Change Content</button>
+    <button type="button" onclick="loadXMLDoc()">Change Content</button>
+    <table id="board" cellspacing=0 cellpadding=0 border=1 style="border-collapse:collapse;"> 
+     
+    </table>
+    
+    
+    <button type="button" onclick="drawTDel(5,5)">del</button>
+    
 	<script type="text/javascript">
-		var c = document.getElementById("myCanvas");
-		var cxt = c.getContext("2d");
+	var max=50;
+	var tbl;
+	tbl = document.getElementById("board");
+ 
+	for(var i =0;i<max;i++){
+		var trNode = tbl.insertRow(i);
+		for(var j = 0 ;j<max;j++){
+			var tdNode = trNode.insertCell(j);
+		}
+	}
+	
+	
+	var c = document.getElementById("myCanvas");
+	var cxt = c.getContext("2d");
+
 
 		function drawH() {
 			for (var i = 0; i < 100; i++) {
@@ -26,13 +61,20 @@
 			}
 		}
 		function drawP(t, j) {
-			cxt.clearRect(0,0,canvas.width,canvas.height);
-		    context.beginPath();
+			 
 			cxt.moveTo(t * 2, j * 2);
 			cxt.lineTo(t * 2 + 2, j * 2 + 2);
 			cxt.moveTo(t * 2 + 2, j * 2);
 			cxt.lineTo(t * 2, j * 2 + 2);
 			cxt.stroke();
+		}
+		function drawT(t, j) {
+			 
+			tbl.rows[t].cells[j].style.backgroundColor="red"; 
+		}
+		function drawTDel(t, j) {
+			 
+			tbl.rows[t].cells[j].style.backgroundColor="white"; 
 		}
 		function loadXMLDoc1() {
 			for (var i = 0; i < 100; i++) {
@@ -40,6 +82,7 @@
 			}
 		}
 		function loadXMLDoc() {
+		
 			var xmlhttp;
 			var s;
 			xmlhttp = new XMLHttpRequest();
@@ -49,11 +92,19 @@
 					s = document.getElementById("myDiv").innerHTML;
 					document.getElementById("myDiv1").innerHTML = s;
 					var tmpi, tmpj;
-					for (var i = 0; i < s.length; i++) {
-						tmpi = Math.floor(i / 6);
-						tmpj = i - tmpi * 6;
-						if (s.charAt(i) != '0')
-							drawP(tmpi, tmpj);
+					for (var i = 0; i < s.length-1; i++) {
+						//alert ("s="+ s.length);
+						//alert(":"+s.charAt(i));
+						tmpi = Math.floor(i / max);
+						tmpj = i - tmpi * max;
+						if (s.charAt(i) == '1'){
+							drawT(tmpi, tmpj);
+							//alert(tmpi+":"+tmpj+":"+"等于1");		
+						}
+						else{
+							drawTDel(tmpi,tmpj);
+							//alert(tmpi+":"+tmpj+":"+"不等于1");		
+						}
 					}
 				}
 			}

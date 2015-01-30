@@ -76,7 +76,7 @@ public class ServletOne1 extends HttpServlet {
 			//out.println("sessionid is new:"+sessionId);
 			s= NewStar.get1("null");
 			}else {
-			out.println("already life:"+session.getAttribute("data"));
+			//out.println("already life:"+session.getAttribute("data"));
 			
 			s= NewStar.get1(session.getAttribute("data").toString());
 			
